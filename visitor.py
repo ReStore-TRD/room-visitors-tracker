@@ -13,4 +13,4 @@ input_value2 = st.text_input('Which Room:')
 if st.button('Run'):
     number = my_function(input_value)
     room = my_function(input_value2)
-    st.write('Attended:', number)
+    st.write('Attended once', number)
