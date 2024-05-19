@@ -23,22 +23,21 @@ def main():
     if page == "Home":
         st.title("Home Page")
         st.write("Hi Volunteer!")
+        st.write("You can contact us at info@restore-trd.no")
 
     elif page == "Kitchen":
-        st.title("About Page")
-        st.write("This is the About Page.")
+        st.title("Kitchen room")
+        input_value = st.text_input('Enter token number:')
+        if st.button('Run'):
+            number = my_function(input_value)
+            st.write('Attended once', number)
 
     elif page == "Table":
         st.title("Table room")
         input_value = st.text_input('Enter token number:')
-        input_value2 = st.text_input('Which Room:')
         if st.button('Run'):
             number = my_function(input_value)
-            room = my_function(input_value2)
             st.write('Attended once', number)
-            st.write("You can contact us at contact@example.com")
-
-        
 
    
 
@@ -46,3 +45,6 @@ if __name__ == "__main__":
     main()
 
 
+
+
+## zero for unlimited
