@@ -6,7 +6,7 @@ def my_function(input_value):
     return result
 
 # Create the Streamlit UI components
-st.title('ReStore Opening')
+st.title('Shelves Room')
 input_value = st.text_input('Enter token number:')
 
 if st.button('Run'):
