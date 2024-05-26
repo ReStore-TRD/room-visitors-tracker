@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 
@@ -8,11 +7,6 @@ def my_function(input_value):
     
 
 def main():
-
-    def my_function(input_value):
-        result = input_value
-        return result
-
     # Create a Streamlit sidebar for the navbar
     st.sidebar.title("Navigation")
 
