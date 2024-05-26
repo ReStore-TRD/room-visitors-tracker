@@ -1,9 +1,13 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
-url = "https://docs.google.com/spreadsheets/d/1uV84YaB9HQr2fKR_J8Onaq49wUEWaaYTjuFFnoy30eo/edit?usp=sharing"
-
+# Public Google Sheet but the link is kept in secret
+url = st.secrets["spreadsheet"]
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-data = conn.read(spreadsheet=url, usecols=[0,1])
+data = conn.read(spreadsheet=url, worksheet="0")
+# With the 'worksheet' param, you can specify the id of a GS (everything after gid= in the url)
+# Tables: worksheet="196616450"
 st.dataframe(data)
+
+# Let's try to add a row to the data
