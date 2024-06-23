@@ -1,19 +1,31 @@
+import gspread  # Python API for Google Sheets, used for private connection
 import streamlit as st
 import datetime
-from streamlit_gsheets import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection  # used for public connection
 
 # Public Google Sheet but the link is kept in secret
-url = st.secrets["spreadsheet"]
-conn = st.connection("gsheets", type=GSheetsConnection)
+#url = st.secrets["spreadsheet"] # the url is in the secrets.toml
+#conn = st.connection("gsheets", type=GSheetsConnection)
 
-data = conn.read(spreadsheet=url, worksheet="0")
+#data = conn.read(spreadsheet=url, worksheet="0")
 # With the 'worksheet' param, you can specify the id of a GS (everything after gid= in the url)
 # Tables: worksheet="196616450"
-st.subheader("Public connection can be used to display data from a GS, but not to update/write it")
-st.dataframe(data)
+# Public connection can be used to display data from a GS, but not to update/write it
+#st.subheader("Public connection can be used to display data from a GS, but not to update/write it")
+#st.dataframe(data)
+
+# Private Google Sheet, private connection
+# Obtaibibg credentials
+gc = gspread.service_account(filename="test-tracking-streamlit-dae6d2892d19.json")
+# Opening a GS by name, including worksheet name 
+sheet = gc.open('Test_tracking_streamlit').worksheet('Kitchen')
+# Let's try to add a row to the data
+#row = ["14-16", "6"]
+#sheet.append_row(row)
 
 st.subheader("Visitor tracking functions")
 
+# Streamlit app functions
 def store_tokens():
     if token not in st.session_state:
         st.session_state[token] = str(datetime.datetime.now())[:-7]
@@ -31,4 +43,13 @@ for k, v in st.session_state.items():
     if "FormSubmitter" not in k:
         st.write(k, ": ",  v)
 
-# Let's try to add a row to the data
+visitor_data = {}
+
+# Adding app data row-by-row to GS
+for k, v in st.session_state.items():
+    if "FormSubmitter" not in k:
+        if k not in visitor_data.keys():
+            visitor_data[k] = v
+
+for k, v in visitor_data.items():
+    sheet.append_row([k,v])
