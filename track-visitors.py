@@ -1,27 +1,16 @@
 import gspread  # Python API for Google Sheets, used for private connection
 import streamlit as st
 import datetime
-from streamlit_gsheets import GSheetsConnection  # used for public connection
 
-# Public Google Sheet but the link is kept in secret
-#url = st.secrets["spreadsheet"] # the url is in the secrets.toml
-#conn = st.connection("gsheets", type=GSheetsConnection)
+# Credentials from secrets.toml
+gc_credentials = st.secrets["gs_credentials"]['streamlit_visitor_tracking_creds']
+creds_dict = {key:value for key, value in gc_credentials.items()}
 
-#data = conn.read(spreadsheet=url, worksheet="0")
-# With the 'worksheet' param, you can specify the id of a GS (everything after gid= in the url)
-# Tables: worksheet="196616450"
-# Public connection can be used to display data from a GS, but not to update/write it
-#st.subheader("Public connection can be used to display data from a GS, but not to update/write it")
-#st.dataframe(data)
-
-# Private Google Sheet, private connection
-# Obtaibibg credentials
-gc = gspread.service_account(filename="test-tracking-streamlit-dae6d2892d19.json")
+# Obtaining credentials with spread
+gc = gspread.service_account_from_dict(creds_dict) # from secrets file
+#gc = gspread.service_account(filename="test-tracking-streamlit-dae6d2892d19.json") # from local json file
 # Opening a GS by name, including worksheet name 
 sheet = gc.open('Test_tracking_streamlit').worksheet('Kitchen')
-# Let's try to add a row to the data
-#row = ["14-16", "6"]
-#sheet.append_row(row)
 
 st.subheader("Visitor tracking functions")
 
@@ -44,12 +33,12 @@ for k, v in st.session_state.items():
         st.write(k, ": ",  v)
 
 visitor_data = {}
-
-# Adding app data row-by-row to GS
+    # Adding app data row-by-row to GS
 for k, v in st.session_state.items():
     if "FormSubmitter" not in k:
         if k not in visitor_data.keys():
             visitor_data[k] = v
+                
 
 for k, v in visitor_data.items():
     sheet.append_row([k,v])
