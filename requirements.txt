@@ -1,2 +1,4 @@
 streamlit
+datetime
+gspread
 streamlit_gsheets
