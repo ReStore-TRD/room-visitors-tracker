@@ -1,4 +1,5 @@
-.DS_Store
+*.DS_Store
+*/.DS_Store
 test-tracking-streamlit-dae6d2892d19.json
 test-tracking-streamlit-modified.json
 

@@ -10,11 +10,11 @@ def api_call():
     # Obtaining credentials with spread
     gc = gspread.service_account_from_dict(creds_dict) # from secrets file
     # Opening a GS by name, including worksheet name 
-    return gc.open('Test_tracking_streamlit').worksheet('Kitchen')
+    return gc.open('Test_tracking_streamlit').worksheet('Books')
 
 sheet = api_call()
 
-st.subheader("You are in the room: Kitchen 🍽️")
+st.subheader("You are in the room: Books 📖, Bedframes 	🛏️, Toys 🧸")
 
 def store_tokens(token):
     if token not in st.session_state:
