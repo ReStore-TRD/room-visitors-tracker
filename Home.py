@@ -1,5 +1,7 @@
 import streamlit as st
 
+st.sidebar.markdown("## Home 🏠")
+
 st.markdown(
         """
         <style>
