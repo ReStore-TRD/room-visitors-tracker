@@ -18,5 +18,6 @@ st.markdown(
 
 st.header("Welcome to ReStore Opening!")
 
-st.write("Dear volunteer, thank you for your help at the opening!")
+st.write("Dear volunteer, thank you for your help with visitor tracking!")
 st.write("Choose a room where you want to track visitors from the bar on the left.")
+st.write("You will need to submit the token number every time a visitor enters your room.")
