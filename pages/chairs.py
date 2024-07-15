@@ -2,6 +2,8 @@ import gspread  # Python API for Google Sheets, used for private connection
 import streamlit as st
 import datetime
 
+st.sidebar.markdown("## Chairs 🪑")
+
 @st.cache_resource(show_spinner="Connecting to Google Spreadsheets...")
 def api_call():
     gc_credentials = st.secrets["gs_credentials"]['streamlit_visitor_tracking_creds']
