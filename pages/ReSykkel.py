@@ -1,9 +1,9 @@
 from utils import api_call, store_tokens, write_visitor_info
 import streamlit as st
 
-room = "Shelves"
-st.sidebar.markdown("## Shelves 🪜")
-st.subheader("You are in the room: Shelves 🪜")
+room = "ReSykkel"
+st.sidebar.markdown("## ReSykkel 🚲")
+st.subheader("You are in the room: ReSykkel 🚲")
 
 sheet = api_call()
 
