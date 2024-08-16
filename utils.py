@@ -33,7 +33,7 @@ def store_tokens(token, room, sheet):
         st.write(":red[Token #" + str(token) + " has already been submitted. ❌]")
 
 
-def write_visitor_info(room, sheet):
+def write_visitor_info_old(room, sheet):
     list_of_lists = sheet.get_all_values() # row-by-row gs
     registered_token_keys = [str(lrow[2]) + "-" + str(lrow[0]) for lrow in list_of_lists]
     timestamps = [lrow[1] for lrow in list_of_lists]
@@ -44,3 +44,24 @@ def write_visitor_info(room, sheet):
         if room in k: # Showing visitors admitted to this particular room
             tkn = k.split("-") # Splitting token_key, showing just the token
             st.write(tkn[1], "\u3000",  v)
+
+
+def write_visitor_info(room, sheet):
+    tk_dict = {}
+    list_of_lists = sheet.get_all_values() # row-by-row gs
+    for row in list_of_lists:
+        if row[2] == room:
+            tk_dict[str(row[1])] = str(row[0]) # timestamp: visitor token
+    st.write("#\u3000Time")
+    for k, v in tk_dict.items():
+        st.write(v, "\u3000", k)
+
+
+def add_unnumbered_token(room, sheet):
+    token = "unlimited_slot_visitor"
+    timezone = pytz.timezone('Europe/Oslo')
+    ts = str(datetime.datetime.now(tz = timezone)) # format: 2024-08-09 20:32:33.294137+02:00
+    time_stamp = ts.split(".")[0] # remove everything after period
+    sheet.append_row([token, time_stamp, room])
+    message = ":green[An unlimited slot visitor has been recorded! 🎉]"
+    st.write(message)
